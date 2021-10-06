@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import NewComponent from './NewComponent';
+import NewComponent from './NewsComponent';
+import Spinner from './Spinner';
 
 export class News extends Component {
     articles = []
@@ -14,35 +15,40 @@ export class News extends Component {
     }
     
     async componentDidMount(){
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6ca9cac1c58342e3a9b7d34f03b7129d&page=1&pageSize=18`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         let parsedData = await data.json();
         this.setState({articles : parsedData.articles, totalResults: parsedData.totalResults})
     }
 
      PreviousClick =async()=>{
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6ca9cac1c58342e3a9b7d34f03b7129d&page=${this.state.page - 1}&pageSize=18`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        this.setState({
+            loading : true
+        })
+        let data = await fetch(url);
+        let parsedData = await data.json();
+        this.setState({
+            articles : parsedData.articles,
+            page : this.state.page - 1,
+            loading : false
+        })
+    }
+    
+     NextClick = async()=>{
+         if(!(this.state.page + 1 >= Math.ceil(this.state.totalResults/this.props.pageSize))){
+            let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+            this.setState({
+                loading : true
+            })
             let data = await fetch(url);
             let parsedData = await data.json();
             this.setState({
                 articles : parsedData.articles,
-                page : this.state.page - 1
+                page : this.state.page + 1,
+                loading : false
             })
-    }
-    
-     NextClick = async()=>{
-         if(this.state.page + 1 >= Math.ceil(this.state.totalResults/18)){
-
-         }
-         else {
-             let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=6ca9cac1c58342e3a9b7d34f03b7129d&page=${this.state.page + 1}&pageSize=18`;
-                 let data = await fetch(url);
-                 let parsedData = await data.json();
-                 this.setState({
-                     articles : parsedData.articles,
-                     page : this.state.page + 1
-                 })
-         }
+        }
     }
 
     render() {
@@ -50,8 +56,9 @@ export class News extends Component {
             <>
                 <div className="container my-3">
                     <div className="row">
-                        <h1>Top Headlines</h1>
-                        {this.state.articles.map((element)=>{
+                        <h1 className="text-center">Top Headlines</h1>
+                        {this.state.loading && <Spinner />}
+                        {!this.state.loading && this.state.articles.map((element)=>{
                     return <div className="col md-4 my-2" key={element.url}>
                                 <NewComponent title={element.title}
                                             description={element.description}
@@ -63,7 +70,7 @@ export class News extends Component {
                 </div>
                 <div className="container d-flex justify-content-between my-3">
                     <button href="#" disabled={this.state.page<=1} onClick={this.PreviousClick} className="btn btn-dark"> &larr; Previous</button>
-                    <button href="#" className="btn btn-dark" onClick={this.NextClick}>Next &rarr;</button>
+                    <button href="#" disabled={this.state.page + 1 >= Math.ceil(this.state.totalResults/this.props.pageSize)} className="btn btn-dark" onClick={this.NextClick}>Next &rarr;</button>
                 </div>
             </>
         )

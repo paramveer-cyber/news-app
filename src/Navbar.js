@@ -16,7 +16,25 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" href="##">Home</a>
+                        <a className="nav-link active" aria-current="page" href="##">Business</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">Entertainment</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">General</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">Health</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">Science</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">Sports</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="##">Technology</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,10 +49,6 @@ export default function Navbar(props) {
                             </ul>
                         </li>
                     </ul>
-                    <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                     </div>
                 </div>
             </nav>
