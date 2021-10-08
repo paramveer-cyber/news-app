@@ -1,7 +1,6 @@
 import React from 'react'
 import {
-    BrowserRouter as Router,
-    Link
+    BrowserRouter as Router
 } from "react-router-dom";
 import PropTypes from 'prop-types'
 
@@ -21,25 +20,25 @@ export default function Navbar(props) {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/buisness">Business</Link>
+                                    <a className="nav-link active" aria-current="page" href="/buisness">Business</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/entertainment">Entertainment</Link>
+                                    <a className="nav-link active" aria-current="page" href="/entertainment">Entertainment</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/">General</Link>
+                                    <a className="nav-link active" aria-current="page" href="/">General</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/health">Health</Link>
+                                    <a className="nav-link active" aria-current="page" href="/health">Health</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/science">Science</Link>
+                                    <a className="nav-link active" aria-current="page" href="/science">Science</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/sports">Sports</Link>
+                                    <a className="nav-link active" aria-current="page" href="/sports">Sports</a>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/technology">Technology</Link>
+                                    <a className="nav-link active" aria-current="page" href="/technology">Technology</a>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle text-white" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
