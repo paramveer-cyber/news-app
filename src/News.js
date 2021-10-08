@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { Component } from 'react'
 import NewComponent from './NewsComponent';
 import Spinner from './Spinner';
@@ -9,16 +10,24 @@ export class News extends Component {
         super();
         this.state = {
             articles : [],
-            loading: false,
+            loading: true,
             page: 1
         }
     }
     
+
+
     async componentDidMount(){
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
+        this.setState({
+            loading : true
+        })
         let data = await fetch(url);
         let parsedData = await data.json();
-        this.setState({articles : parsedData.articles, totalResults: parsedData.totalResults})
+        this.setState({
+            articles : parsedData.articles,
+            totalResults: parsedData.totalResults,
+            loading : false})
     }
 
      PreviousClick =async()=>{
@@ -50,11 +59,13 @@ export class News extends Component {
             })
         }
     }
+    
+    
 
     render() {
         return (
             <>
-                <div className="container my-3">
+              <div className="container my-3">
                     <div className="row">
                         <h1 className="text-center">Top Headlines</h1>
                         {this.state.loading && <Spinner />}
@@ -70,6 +81,7 @@ export class News extends Component {
                 </div>
                 <div className="container d-flex justify-content-between my-3">
                     <button href="#" disabled={this.state.page<=1} onClick={this.PreviousClick} className="btn btn-dark"> &larr; Previous</button>
+                    <Link to="/" ><button onClick={this.PreviousClick} className="btn btn-dark">Home</button> </Link>
                     <button href="#" disabled={this.state.page + 1 >= Math.ceil(this.state.totalResults/this.props.pageSize)} className="btn btn-dark" onClick={this.NextClick}>Next &rarr;</button>
                 </div>
             </>
