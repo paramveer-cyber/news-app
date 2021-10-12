@@ -14,10 +14,8 @@ export class News extends Component {
             page: 1
         }
     }
-
-
-
     async componentDidMount() {
+        console.log(this.props.cardmode)
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
         this.setState({
             loading: true
@@ -30,7 +28,6 @@ export class News extends Component {
             loading: false
         })
     }
-
     PreviousClick = async () => {
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({
@@ -44,7 +41,6 @@ export class News extends Component {
             loading: false
         })
     }
-
     NextClick = async () => {
         if (!(this.state.page + 1 >= Math.ceil(this.state.totalResults / this.props.pageSize))) {
             let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
@@ -60,15 +56,12 @@ export class News extends Component {
             })
         }
     }
-
-
-
     render() {
         return (
             <>
                 <div className="container my-3">
                     <div className="row">
-                        <h1 className="text-center">Top Headlines</h1>
+                        <h1 className={`text-center text-${this.props.textmode}`}>Top Headlines</h1>
                         {this.state.loading && <Spinner />}
                         {!this.state.loading && this.state.articles.map((element) => {
                             return <div className="col md-4 my-2" key={element.url}>
@@ -81,9 +74,9 @@ export class News extends Component {
                     </div>
                 </div>
                 <div className="container d-flex justify-content-between my-3">
-                    <button href="#" disabled={this.state.page <= 1} onClick={this.PreviousClick} className="btn btn-dark"> &larr; Previous</button>
-                    <Link to="/" ><button onClick={this.PreviousClick} className="btn btn-dark">Home</button> </Link>
-                    <button href="#" disabled={this.state.page + 1 >= Math.ceil(this.state.totalResults / this.props.pageSize)} className="btn btn-dark" onClick={this.NextClick}>Next &rarr;</button>
+                    <button href="#" disabled={this.state.page <= 1} onClick={this.PreviousClick} className={`btn btn-${this.props.mode? "light" : "light"}`}> &larr; Previous</button>
+                    <Link to="/" ><button onClick={this.PreviousClick} className={`btn btn-${this.props.mode? "light" : "light"}`}>Home</button> </Link>
+                    <button href="#" disabled={this.state.page + 1 >= Math.ceil(this.state.totalResults / this.props.pageSize)} className={`btn btn-${this.props.mode? "light" : "light"}`} onClick={this.NextClick}>Next &rarr;</button>
                 </div>
             </>
         )
